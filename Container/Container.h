@@ -12,7 +12,7 @@
 class Container {
 
     std::string name;
-    std::list<Person> persons;
+    std::list<Person*> persons;
 
 };
 

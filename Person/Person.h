@@ -13,8 +13,6 @@ class Person {
 
 public:
     virtual bool canDrive() = 0;
-
-
 };
 
 
