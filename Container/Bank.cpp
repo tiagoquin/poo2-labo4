@@ -16,7 +16,7 @@ std::string Bank::toString() const {
 
 }
 
-Bank::Bank(const std::string &name, const std::list<Person*> &persons) : Container(name) {
+Bank::Bank(const std::string &name,std::initializer_list<Person*> persons) : Container(name) {
     for (Person* person : persons) {
         this->addMember(person);
     }

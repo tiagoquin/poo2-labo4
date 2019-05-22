@@ -2,11 +2,6 @@
 // Created by chadanlo on 2019-05-16.
 //
 #include <Person/Papa.h>
-#include <Person/Mamam.h>
-#include <Person/Fils.h>
-#include <Person/Fille.h>
-#include <Person/Policier.h>
-#include <Person/Voleur.h>
 #include <iostream>
 #include <iomanip>
 #include "Controller.h"
@@ -36,36 +31,12 @@
 #define LIGNESIZE 60
 
 
-Controller::Controller() : turn(0), booatpositionisleft(true) {
-    std::list<Person *> toBank;
+Controller::Controller(std::initializer_list<Person *> persons) : turn(0), booatpositionisleft(true) {
 
-    Person *papa = new Papa("papa");
-    Person *mamam = new Mamam("mamam");
-    Person *paul = new Fils("paul");
-    Person *pierre = new Fils("pierre");
-    Person *julie = new Fille("julie");
-    Person *janne = new Fille("janne");
-    Person *policier = new Policier("policier");
-    Person *voleur = new Voleur("voleur");
-
-    persons.insert(std::pair<std::string, Person *>(papa->getName(), papa));
-    toBank.push_back(papa);
-    persons.insert(std::pair<std::string, Person *>(mamam->getName(), mamam));
-    toBank.push_back(mamam);
-    persons.insert(std::pair<std::string, Person *>(paul->getName(), paul));
-    toBank.push_back(paul);
-    persons.insert(std::pair<std::string, Person *>(pierre->getName(), pierre));
-    toBank.push_back(pierre);
-    persons.insert(std::pair<std::string, Person *>(julie->getName(), julie));
-    toBank.push_back(julie);
-    persons.insert(std::pair<std::string, Person *>(janne->getName(), janne));
-    toBank.push_back(janne);
-    persons.insert(std::pair<std::string, Person *>(policier->getName(), policier));
-    toBank.push_back(policier);
-    persons.insert(std::pair<std::string, Person *>(voleur->getName(), voleur));
-    toBank.push_back(voleur);
-
-    gauche = new Bank(RIVEGAUCHE, toBank);
+    for (Person *person : persons) {
+        this->persons.insert(std::pair<std::string, Person *>(person->getName(), person));
+    }
+    gauche = new Bank(RIVEGAUCHE, persons);
     droite = new Bank(RIVEDROITE);
     boat = new Boat(BOAT);
 
@@ -153,12 +124,12 @@ bool Controller::movePeople(const std::string &person, bool debark) {
         containers[debark ? 1 : 0] = booatpositionisleft ? gauche : droite;
 
         containers[debark ? 0 : 1] = boat;
-       if(containers[0]->removeMember(p)) {
-           containers[1]->addMember(p);
-       } else {
-           std::cout << NOPERSONINSID << containers[0]->getName()<< std::endl;
-           return false;
-       }
+        if (containers[0]->removeMember(p)) {
+            containers[1]->addMember(p);
+        } else {
+            std::cout << NOPERSONINSID << containers[0]->getName() << std::endl;
+            return false;
+        }
 
         if (!(containers[0]->verifie() && containers[1]->verifie())) {
             containers[1]->removeMember(p);

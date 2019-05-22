@@ -24,7 +24,7 @@ class Controller {
     void display();
 
 public:
-    Controller();
+    Controller(std::initializer_list<Person*> persons);
 
 
     void nextTurn();

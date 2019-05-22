@@ -16,7 +16,7 @@ public:
 
     std::string toString() const override;
 
-    Bank(const std::string &name, const std::list<Person *> &persons);
+    Bank(const std::string &name,std::initializer_list<Person*>persons);
 };
 
 
