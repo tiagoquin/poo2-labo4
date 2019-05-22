@@ -1,6 +1,14 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Controller.h
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : déclaration des méthodes de la classe Controller.
+ Cette classe gère le control de notre application.
+ -----------------------------------------------------------------------------------
+*/
 
 #ifndef POO2_LABO4_CONTROLLER_H
 #define POO2_LABO4_CONTROLLER_H

@@ -5,7 +5,7 @@
  Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
  Date        : 22.05.2018
 
- But         : la class abstaite fammille represente uen fammile, toute class héritante
+ But         : la class  fammille represente uen fammile, toute class héritante
  appartienne à la fammile.
  -----------------------------------------------------------------------------------
 */
@@ -17,15 +17,12 @@
 
 class Famile : public Person {
 
-    virtual std::string type_info() =0;
+    virtual std::string type_info() = 0;
 
 protected:
-    explicit Famile(const std::string& name);
-    explicit Famile(const std::string& name, bool drive);
+    explicit Famile(const std::string &name);
 
-private:
-
-
+    explicit Famile(const std::string &name, bool drive);
 
 };
 

@@ -1,6 +1,14 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Controller.cpp
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : définition de nos fonctions
+ -----------------------------------------------------------------------------------
+*/
+
 #include <Person/Papa.h>
 #include <iostream>
 #include <iomanip>

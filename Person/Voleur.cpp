@@ -1,6 +1,13 @@
-//
-// Created by Alexandre Gabrielli on 21.05.2019.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Voleur.cpp
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : implemente les fonctions de la class Voleur
+ -----------------------------------------------------------------------------------
+*/
 
 #include "Voleur.h"
 

@@ -1,6 +1,14 @@
-//
-// Created by Alexandre Gabrielli on 21.05.2019.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Policier.h
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : la class  Policier represente un policier est hérite de Personne,
+ un policier peu conduire
+ -----------------------------------------------------------------------------------
+*/
 
 #ifndef POO2_LABO4_POLICIER_H
 #define POO2_LABO4_POLICIER_H
