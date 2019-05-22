@@ -6,9 +6,8 @@ int main() {
 
     Controller controller;
 
-    while (true){
-        controller.nextTurn();
-    }
+
+    controller.nextTurn();
 
     return 0;
 }

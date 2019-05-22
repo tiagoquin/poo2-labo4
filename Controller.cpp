@@ -27,6 +27,9 @@
 #define TUTOQ "q : quitter\n"
 #define TUTOH "h : menu\n"
 #define INPUTERROR "je n'est pas compris ce que vous voulez faire, appuyer sur h afficher l'aide"
+#define NONAMEFOUND "ce nom ne semble pas correct"
+#define NOPERSONINSID "la personne n'est pas dans "
+
 
 #define LIGNESEPARATOR '-'
 #define CENTERSEPARATOR '='
@@ -34,45 +37,33 @@
 
 
 Controller::Controller() : turn(0), booatpositionisleft(true) {
-    std::list<std::shared_ptr<Person>> toBank;
+    std::list<Person *> toBank;
 
-    std::shared_ptr<Person> sp_papa(new Papa("papa"));
-    persons.insert(value_person(sp_papa->getName(), sp_papa));
-    toBank.push_back(sp_papa);
+    Person *papa = new Papa("papa");
+    Person *mamam = new Mamam("mamam");
+    Person *paul = new Fils("paul");
+    Person *pierre = new Fils("pierre");
+    Person *julie = new Fille("julie");
+    Person *janne = new Fille("janne");
+    Person *policier = new Policier("policier");
+    Person *voleur = new Voleur("voleur");
 
-    std::shared_ptr<Person> sp_mamam(new Mamam("mamam"));
-    persons.insert(value_person(sp_mamam->getName(), sp_mamam));
-    toBank.push_back(sp_mamam);
-
-    std::shared_ptr<Person> sp_paul(new Fils("paul"));
-    persons.insert(value_person(sp_paul->getName(), sp_paul));
-    toBank.push_back(sp_paul);
-
-
-    std::shared_ptr<Person> sp_pierre(new Fils("pierre"));
-    persons.insert(value_person(sp_pierre->getName(), sp_pierre));
-    toBank.push_back(sp_pierre);
-
-
-    std::shared_ptr<Person> sp_julie(new Fille("julie"));
-    persons.insert(value_person(sp_julie->getName(), sp_julie));
-    toBank.push_back(sp_julie);
-
-
-    std::shared_ptr<Person> sp_janne(new Fille("janne"));
-    persons.insert(value_person(sp_janne->getName(), sp_janne));
-    toBank.push_back(sp_janne);
-
-
-    std::shared_ptr<Person> sp_policier(new Policier("policier"));
-    persons.insert(value_person(sp_policier->getName(), sp_policier));
-    toBank.push_back(sp_policier);
-
-
-    std::shared_ptr<Person> sp_voleur(new Voleur("Voleur"));
-    persons.insert(value_person(sp_voleur->getName(), sp_voleur));
-    toBank.push_back(sp_voleur);
-
+    persons.insert(std::pair<std::string, Person *>(papa->getName(), papa));
+    toBank.push_back(papa);
+    persons.insert(std::pair<std::string, Person *>(mamam->getName(), mamam));
+    toBank.push_back(mamam);
+    persons.insert(std::pair<std::string, Person *>(paul->getName(), paul));
+    toBank.push_back(paul);
+    persons.insert(std::pair<std::string, Person *>(pierre->getName(), pierre));
+    toBank.push_back(pierre);
+    persons.insert(std::pair<std::string, Person *>(julie->getName(), julie));
+    toBank.push_back(julie);
+    persons.insert(std::pair<std::string, Person *>(janne->getName(), janne));
+    toBank.push_back(janne);
+    persons.insert(std::pair<std::string, Person *>(policier->getName(), policier));
+    toBank.push_back(policier);
+    persons.insert(std::pair<std::string, Person *>(voleur->getName(), voleur));
+    toBank.push_back(voleur);
 
     gauche = new Bank(RIVEGAUCHE, toBank);
     droite = new Bank(RIVEDROITE);
@@ -86,23 +77,24 @@ Controller::Controller() : turn(0), booatpositionisleft(true) {
 
 
 void Controller::nextTurn() {
+    bool again = false;
     turn++;
     std::cout << turn;
     /*pas de vérification de saisie utilisateur => pas de bufferOverflow*/
-    std::string str;
-    std::getline(std::cin, str);
+    std::string choice;
+    std::getline(std::cin, choice);
     std::cin.clear();
     std::fflush(stdin);
 
-    switch (str[0]) {
+    switch (choice[0]) {
         case AFFICHERTOUCH:
             showMenu();
             break;
         case EMBARQUERTOUCH:
-            embark(str.substr(2));
+            embark(choice.substr(2));
             break;
         case DEBARQUERTOUCH:
-            debark(str.substr(2));
+            debark(choice.substr(2));
             break;
         case MOUVETOUCH:
             if (boat->hasDriver())
@@ -112,7 +104,7 @@ void Controller::nextTurn() {
             reset();
             break;
         case QUITTOUCH:
-            exit(0);
+            again = true;
         case MENUTOUCH:
             showMenu();
             break;
@@ -122,7 +114,9 @@ void Controller::nextTurn() {
 
     }
     display();
-
+    //ne quitte pas t'en qu'on a pas appuyer sur q
+    if (!again)
+        nextTurn();
 }
 
 void separatorLine(char separator) {
@@ -151,19 +145,30 @@ void Controller::display() {
 
 bool Controller::movePeople(const std::string &person, bool debark) {
     Container *containers[2];
-    std::weak_ptr<Person> wp_person(persons.find(person)->second);
+    auto it = persons.find(person);
+    if (it != persons.end()) {
 
-    containers[debark ? 1 : 0] = booatpositionisleft ? gauche : droite;
+        Person *p = it->second;
 
-    containers[debark ? 0 : 1] = boat;
-    containers[0]->removeMember(wp_person);
-    containers[1]->addMember(wp_person);
+        containers[debark ? 1 : 0] = booatpositionisleft ? gauche : droite;
 
-    if (!(containers[0]->verifie() && containers[1]->verifie())) {
-        containers[1]->removeMember(wp_person);
-        containers[0]->addMember(wp_person);
+        containers[debark ? 0 : 1] = boat;
+       if(containers[0]->removeMember(p)) {
+           containers[1]->addMember(p);
+       } else {
+           std::cout << NOPERSONINSID << containers[0]->getName()<< std::endl;
+           return false;
+       }
+
+        if (!(containers[0]->verifie() && containers[1]->verifie())) {
+            containers[1]->removeMember(p);
+            containers[0]->addMember(p);
+        }
+    } else {
+        std::cout << NONAMEFOUND << std::endl;
     }
 }
+
 
 bool Controller::debark(const std::string &person) {
     return movePeople(person, true);

@@ -16,7 +16,7 @@ class Container {
 private:
 
 protected:
-    std::list<std::weak_ptr<Person>> persons;
+    std::list<Person*> persons;
 
     virtual std::string toString() const = 0;
 
@@ -26,13 +26,15 @@ public:
 
     virtual bool verifie();
 
-    void removeMember(std::weak_ptr<Person>& person);
+    bool removeMember(const Person* person);
 
     friend std::ostream &operator<<(std::ostream &os, const Container &container);
 
-    bool addMember(std::weak_ptr<Person>&);
+    bool addMember( Person* person);
 
-    const std::list<std::weak_ptr<Person>> &getPersons() const;
+    const std::list<Person*> &getPersons() const;
+
+    const std::string &getName() const;
 };
 
 

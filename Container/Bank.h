@@ -12,11 +12,11 @@
 class Bank : public Container {
 
 public:
-    Bank(const std::string& string);
+    Bank(const std::string &string);
 
     std::string toString() const override;
 
-    Bank(const std::string &name,const std::list< std::shared_ptr<Person>>& persons);
+    Bank(const std::string &name, const std::list<Person *> &persons);
 };
 
 

@@ -8,16 +8,16 @@
 std::string Bank::toString() const {
     std::string string;
     string = this->name + " : ";
-    for (const std::weak_ptr<Person> &person : this->persons) {
-        std::shared_ptr<Person> sp = person.lock();
-        if (sp)
-            string += (*sp).getName() + ' ';
+    for (Person *person : this->persons) {
+
+        string += person->getName() + ' ';
     }
-    return string;
+        return string;
+
 }
 
-Bank::Bank(const std::string &name, const std::list<std::shared_ptr<Person>> &persons) : Container(name) {
-    for (std::weak_ptr<Person> person : persons) {
+Bank::Bank(const std::string &name, const std::list<Person*> &persons) : Container(name) {
+    for (Person* person : persons) {
         this->addMember(person);
     }
 }

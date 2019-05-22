@@ -6,13 +6,11 @@
 #include "Boat.h"
 
 std::ostream &operator<<(std::ostream &os, const Boat &boat) {
-    os<< boat.name << " : <";
-    for (const std::weak_ptr<Person> &person : boat.persons) {
-        std::shared_ptr<Person> sp = person.lock();
-        if (sp)
-            os << (*sp).getName() << " ";
+    os << boat.name << " : <";
+    for (const auto &person : boat.persons) {
+        os << person->getName() << " ";
     }
-   os << " >";
+    os << " >";
 
     return os;
 }
@@ -20,10 +18,8 @@ std::ostream &operator<<(std::ostream &os, const Boat &boat) {
 std::string Boat::toString() const {
     std::string string;
     string = this->name + " : <";
-    for (const std::weak_ptr<Person> &person : this->persons) {
-        std::shared_ptr<Person> sp = person.lock();
-        if (sp)
-            string += (*sp).getName() + " ";
+    for (const auto &person : this->persons) {
+        string += person->getName() + " ";
     }
     string += " >";
 
@@ -44,11 +40,8 @@ bool Boat::verifie() {
 bool Boat::hasDriver() {
 
     for (const auto &person : persons) {
-        std::shared_ptr<Person> sp = person.lock();
-        if (sp) {
-            if (sp->canDrive()) {
-                return true;
-            }
+        if (person->canDrive()) {
+            return true;
         }
     }
     std::cout << "personne n'est en messure de conduire" << std::endl;

@@ -35,7 +35,7 @@ private:
     Bank *droite;
     Boat *boat;
     bool booatpositionisleft;
-    std::map<std::string, std::shared_ptr<Person>> persons;
+    std::map<std::string,Person*> persons;
 
     bool embark( const std::string& person);
     bool debark( const std::string& person);

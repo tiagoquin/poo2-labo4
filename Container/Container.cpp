@@ -10,9 +10,8 @@
 #include <Person/Fille.h>
 #include "Container.h"
 
-bool Container::addMember(std::weak_ptr<Person> &person) {
+bool Container::addMember(Person *person) {
     this->persons.push_back(person);
-
 }
 
 
@@ -23,18 +22,14 @@ std::ostream &operator<<(std::ostream &os, const Container &container) {
 }
 
 
-void Container::removeMember(std::weak_ptr<Person> &person) {
-    std::shared_ptr<Person> sp = person.lock();
-    auto it = persons.begin();
-    if (sp) {
-        //erase from the liste
-        for (; it != persons.end(); ++it) {
-            std::shared_ptr<Person> sp_comp = it->lock();
-            if (sp_comp && sp_comp->getName() == sp->getName()) {
-                persons.erase(it);
-            }
+bool Container::removeMember(const Person *person) {
+    for (auto it = persons.begin(); it != persons.end(); ++it) {
+        if (((Person *) *it)->getName() == person->getName()) {
+            persons.erase(it);
+            return true;
         }
     }
+    return false;
 }
 
 bool Container::verifie() {
@@ -46,55 +41,58 @@ bool Container::verifie() {
     bool isCopPresent = false;
 
     for (const auto &person : persons) {
-        std::shared_ptr<Person> sp_person = person.lock();
-        if (sp_person) {
-            if (sp_person->type_info() == typeid(Voleur).name()) {
-                isThiefPresent = true;
-            } else if (sp_person->type_info() == typeid(Policier).name()) {
-                isCopPresent = true;
-            } else {
-                if (sp_person->canDrive()) {
+        if (person->type_info() == typeid(Voleur).name()) {
+            isThiefPresent = true;
+        } else if (person->type_info() == typeid(Policier).name()) {
+            isCopPresent = true;
+        } else {
+            if (person->canDrive()) {
 
-                    if (sp_person->type_info() == typeid(Mamam).name()) {
-                        isMotherPresent = true;
-                    } else {
-                        isFatherPresent = true;
-                    }
+                if (person->type_info() == typeid(Mamam).name()) {
+                    isMotherPresent = true;
                 } else {
-                    if (sp_person->type_info() == typeid(Fille).name()) {
-                        isGirlPresent = true;
-                    } else {
-                        isBoyPresent = true;
-                    }
+                    isFatherPresent = true;
                 }
-
+            } else {
+                if (person->type_info() == typeid(Fille).name()) {
+                    isGirlPresent = true;
+                } else {
+                    isBoyPresent = true;
+                }
             }
+
         }
     }
-    // vérification des contraintes
-    // policier - voleur
+
+// vérification des contraintes
+// policier - voleur
     if (isThiefPresent && !isCopPresent && (isFatherPresent || isMotherPresent || isBoyPresent || isGirlPresent)) {
         std::cout <<
                   "# Le voleur ne peut rester en contact avec un membre de la famille si le policier n'est pas present !"
                   << std::endl;
         return false;
     }
-    // mère - fils
+// mère - fils
     if (isMotherPresent && isBoyPresent && !isFatherPresent) {
-        std::cout << "# Les fils ne peuvent rester seuls avec leur mere si le pere n'est pas present !" << std::endl;
+        std::cout << "# Les fils ne peuvent rester seuls avec leur mere si le pere n'est pas present !"
+                  << std::endl;
         return false;
 
     }
 
-    // père - fille
+// père - fille
     if (isFatherPresent && isGirlPresent && !isMotherPresent) {
-        std::cout << "# Les filles ne peuvent rester seules avec leur pere si la mere n'est pa presente !" << std::endl;
+        std::cout << "# Les filles ne peuvent rester seules avec leur pere si la mere n'est pa presente !"
+                  << std::endl;
         return false;
-
     }
     return true;
 }
 
-const std::list<std::weak_ptr<Person>> &Container::getPersons() const {
+const std::list<Person *> &Container::getPersons() const {
     return persons;
+}
+
+const std::string &Container::getName() const {
+    return name;
 }
