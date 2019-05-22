@@ -1,6 +1,14 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Person.cpp
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : implemente les méthodes de Person. On peut récupérer leur nom, et
+ savoir si ils peuvent conduire le bateau
+ -----------------------------------------------------------------------------------
+*/
 
 #include "Person.h"
 

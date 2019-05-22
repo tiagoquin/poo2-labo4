@@ -8,7 +8,7 @@
 #include "Controller.h"
 
 int main() {
-    std::initializer_list<Person*> toBank = {
+    std::initializer_list<Person *> toBank = {
             new Papa("papa"),
             new Mamam("mamam"),
             new Fils("paul"),
@@ -17,12 +17,9 @@ int main() {
             new Fille("janne"),
             new Policier("policier"),
             new Voleur("voleur")
-
     };
 
-
     Controller controller(toBank);
-
 
     controller.nextTurn();
 

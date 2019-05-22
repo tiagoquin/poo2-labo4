@@ -1,6 +1,15 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Person.h
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : Déclare les méthode de nos classes Person, Voleur,Policier,Normal,
+               Adulte et enfant. Chaque personne a un nom et peu conduire ou non
+ -----------------------------------------------------------------------------------
+*/
+
 
 #ifndef POO2_LABO4_PERSON_H
 #define POO2_LABO4_PERSON_H

@@ -24,8 +24,7 @@ class Controller {
     void display();
 
 public:
-    Controller(std::initializer_list<Person*> persons);
-
+    Controller(std::initializer_list<Person *> persons);
 
     void nextTurn();
 
@@ -35,11 +34,14 @@ private:
     Bank *droite;
     Boat *boat;
     bool booatpositionisleft;
-    std::map<std::string,Person*> persons;
+    std::map<std::string, Person *> persons;
 
-    bool embark( const std::string& person);
-    bool debark( const std::string& person);
-    bool movePeople( const std::string& person, bool debark);
+    bool embark(const std::string &person);
+
+    bool debark(const std::string &person);
+
+    bool movePeople(const std::string &person, bool debark);
+
     void reset();
 
 };

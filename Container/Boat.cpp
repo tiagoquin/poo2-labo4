@@ -1,19 +1,17 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Boat.cpp
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2019
+
+ But         : implémente les méthode de la classe Boat.
+ -----------------------------------------------------------------------------------
+*/
 
 #include <iostream>
 #include "Boat.h"
 
-std::ostream &operator<<(std::ostream &os, const Boat &boat) {
-    os << boat.name << " : <";
-    for (const auto &person : boat.persons) {
-        os << person->getName() << " ";
-    }
-    os << " >";
-
-    return os;
-}
 
 std::string Boat::toString() const {
     std::string string;
@@ -26,14 +24,14 @@ std::string Boat::toString() const {
     return string;
 }
 
-Boat::Boat(const std::string &string) : Container(string) {}
+Boat::Boat(const std::string &string) : AbstractContainer(string) {}
 
 bool Boat::verifie() {
     if (persons.size() > MAXBOATCAPACITY) {
         std::cout << "capacity max du bateau " << MAXBOATCAPACITY << std::endl;
         return false;
     }
-    return Container::verifie();
+    return AbstractContainer::verifie();
 
 }
 

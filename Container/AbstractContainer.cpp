@@ -1,6 +1,14 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : AbstactContainer.cpp
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2018
+
+ But         : implémente les méthode de la classe AbstactContainer.
+ -----------------------------------------------------------------------------------
+*/
+
 #include <utility>
 #include <cstring>
 #include <iostream>
@@ -8,21 +16,21 @@
 #include <Person/Policier.h>
 #include <Person/Mamam.h>
 #include <Person/Fille.h>
-#include "Container.h"
+#include "AbstractContainer.h"
 
-bool Container::addMember(Person *person) {
+bool AbstractContainer::addMember(Person *person) {
     this->persons.push_back(person);
 }
 
 
-Container::Container(const std::string &name) : name(name) {}
+AbstractContainer::AbstractContainer(const std::string &name) : name(name) {}
 
-std::ostream &operator<<(std::ostream &os, const Container &container) {
+std::ostream &operator<<(std::ostream &os, const AbstractContainer &container) {
     return os << container.toString();
 }
 
 
-bool Container::removeMember(const Person *person) {
+bool AbstractContainer::removeMember(const Person *person) {
     for (auto it = persons.begin(); it != persons.end(); ++it) {
         if (((Person *) *it)->getName() == person->getName()) {
             persons.erase(it);
@@ -32,7 +40,7 @@ bool Container::removeMember(const Person *person) {
     return false;
 }
 
-bool Container::verifie() {
+bool AbstractContainer::verifie() {
     bool isBoyPresent = false;
     bool isGirlPresent = false;
     bool isFatherPresent = false;
@@ -89,10 +97,10 @@ bool Container::verifie() {
     return true;
 }
 
-const std::list<Person *> &Container::getPersons() const {
+const std::list<Person *> &AbstractContainer::getPersons() const {
     return persons;
 }
 
-const std::string &Container::getName() const {
+const std::string &AbstractContainer::getName() const {
     return name;
 }

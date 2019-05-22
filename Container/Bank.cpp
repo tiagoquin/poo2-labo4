@@ -1,6 +1,14 @@
-//
-// Created by chadanlo on 2019-05-16.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 04
+ Fichier     : Bank.cpp
+ Auteur(s)   : Gabrielli Alexandre , Povoà Tiago
+ Date        : 22.05.2019
+
+ But         : implémente les méthode de la classe Bank.
+ -----------------------------------------------------------------------------------
+*/
+
 
 #include "Bank.h"
 
@@ -12,14 +20,14 @@ std::string Bank::toString() const {
 
         string += person->getName() + ' ';
     }
-        return string;
+    return string;
 
 }
 
-Bank::Bank(const std::string &name,std::initializer_list<Person*> persons) : Container(name) {
-    for (Person* person : persons) {
+Bank::Bank(const std::string &name, std::initializer_list<Person *> persons) : AbstractContainer(name) {
+    for (Person *person : persons) {
         this->addMember(person);
     }
 }
 
-Bank::Bank(const std::string &string) : Container(string) {}
+Bank::Bank(const std::string &string) : AbstractContainer(string) {}

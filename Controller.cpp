@@ -115,7 +115,7 @@ void Controller::display() {
 
 
 bool Controller::movePeople(const std::string &person, bool debark) {
-    Container *containers[2];
+    AbstractContainer *containers[2];
     auto it = persons.find(person);
     if (it != persons.end()) {
 
