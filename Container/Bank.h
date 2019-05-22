@@ -6,10 +6,17 @@
 #define POO2_LABO4_BANK_H
 
 
+#include <ostream>
 #include "Container.h"
 
-class Bank : public Container{
+class Bank : public Container {
 
+public:
+    Bank(const std::string& string);
+
+    std::string toString() const override;
+
+    Bank(const std::string &name,const std::list< std::shared_ptr<Person>>& persons);
 };
 
 

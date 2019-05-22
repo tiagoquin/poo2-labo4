@@ -1,11 +1,14 @@
     #include <iostream>
 
-#include "Container/Container.h"
+#include "Controller.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
 
-    Container container;
+    Controller controller;
+
+    while (true){
+        controller.nextTurn();
+    }
 
     return 0;
 }

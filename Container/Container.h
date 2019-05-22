@@ -7,13 +7,32 @@
 
 #include <string>
 #include <list>
+#include <memory>
+#include <ostream>
 #include "../Person/Person.h"
 
 class Container {
 
-    std::string name;
-    std::list<Person*> persons;
+private:
 
+protected:
+    std::list<std::weak_ptr<Person>> persons;
+
+    virtual std::string toString() const = 0;
+
+    std::string name;
+public:
+    explicit Container(const std::string& name);
+
+    virtual bool verifie();
+
+    void removeMember(std::weak_ptr<Person>& person);
+
+    friend std::ostream &operator<<(std::ostream &os, const Container &container);
+
+    bool addMember(std::weak_ptr<Person>&);
+
+    const std::list<std::weak_ptr<Person>> &getPersons() const;
 };
 
 
