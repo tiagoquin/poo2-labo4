@@ -30,4 +30,4 @@ Bank::Bank(const std::string &name, std::initializer_list<Person *> persons) : A
     }
 }
 
-Bank::Bank(const std::string &string) : AbstractContainer(string) {}
+Bank::Bank(const std::string &name) : AbstractContainer(name) {}

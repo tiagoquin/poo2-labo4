@@ -21,7 +21,8 @@ class Fille : public Famile {
 
 public:
     std::string type_info() override;
-    explicit Fille(const std::string& name);
+
+    explicit Fille(const std::string &name);
 };
 
 

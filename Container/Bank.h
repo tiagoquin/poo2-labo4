@@ -20,11 +20,25 @@
 class Bank : public AbstractContainer {
 
 public:
-    Bank(const std::string &string);
+    /**
+     * constructeur
+     * @param name nom du containeur
+     */
+    explicit Bank(const std::string &name);
 
+    /**
+     * on peu aussi le construire depuis une liste de personne
+     * @param name nom du containeur
+     * @param persons liste de personne
+     */
+    Bank(const std::string &name, std::initializer_list<Person *> persons);
+
+    /**
+     * offre un affichage
+     * @return une string
+     */
     std::string toString() const override;
 
-    Bank(const std::string &name,std::initializer_list<Person*>persons);
 };
 
 

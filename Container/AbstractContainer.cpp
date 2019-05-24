@@ -18,7 +18,7 @@
 #include <Person/Fille.h>
 #include "AbstractContainer.h"
 
-bool AbstractContainer::addMember(Person *person) {
+void AbstractContainer::addMember(Person *person) {
     this->persons.push_back(person);
 }
 

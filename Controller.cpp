@@ -42,7 +42,7 @@
 Controller::Controller(std::initializer_list<Person *> persons) : turn(0), booatpositionisleft(true) {
 
     for (Person *person : persons) {
-        this->persons.insert(std::pair<std::string, Person *>(person->getName(), person));
+        this->persons.insert(name_person(person->getName(), person));
     }
     gauche = new Bank(RIVEGAUCHE, persons);
     droite = new Bank(RIVEDROITE);
@@ -170,5 +170,11 @@ void Controller::reset() {
     }
 
     booatpositionisleft = true;
+}
+
+Controller::~Controller() {
+    delete boat;
+    delete gauche;
+    delete droite;
 }
 

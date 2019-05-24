@@ -18,17 +18,30 @@
 #include "AbstractContainer.h"
 
 #define MAXBOATCAPACITY 2
+
 class Boat : public AbstractContainer {
 
 
 public:
+    /**
+     * constructeur
+     */
+    explicit Boat(const std::string &string);
 
+    /**
+     * verifie si l'état actuel correspond au régle (vérifie qu'il n'y ai pas plus de
+     */
     bool verifie() override;
 
-    explicit Boat(const std::string& string);
-
+    /**
+     * offre un affichage
+     * @return une string correspondant à l'affichage du container
+     */
     std::string toString() const override;
 
+    /**
+     * verifie si l'une des personnes au moins à le droit de conduire
+     */
     bool hasDriver();
 
 
